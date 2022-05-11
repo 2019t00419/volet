@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Volet">
         <activity
+            android:name=".Home"
+            android:exported="false"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.Volet.NoActionBar" />
+        <activity
             android:name=".MainActivity2"
             android:exported="false"
             android:label="@string/title_activity_main2" />
