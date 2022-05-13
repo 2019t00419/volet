@@ -22,10 +22,13 @@ public class newData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_data);
         getSupportActionBar().hide();
+
         Button in =findViewById(R.id.income);
         in.setBackgroundColor(Color.rgb(156,39,176));
         Button out =findViewById(R.id.expense);
         out.setBackgroundColor(Color.rgb(211,211,211));
+
+
         des = findViewById(R.id.des);
         amount = findViewById(R.id.amount);
         submit = findViewById(R.id.submit);
