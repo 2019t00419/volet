@@ -7,31 +7,32 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/volet"
+        android:id="@+id/textView3b2"
+        android:layout_width="166dp"
+        android:layout_height="75dp"
+        android:fontFamily="@font/peralta"
+        android:text="Volet"
+        android:textAlignment="center"
+        android:textColor="#9F6BFB"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="405dp"
-        android:layout_height="375dp"
+        android:layout_width="195dp"
+        android:layout_height="169dp"
         android:layout_marginTop="60dp"
         android:contentDescription="@string/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@mipmap/logo_foreground"
-        tools:srcCompat="@mipmap/logo_foreground" />
+        app:layout_constraintVertical_bias="0.453"
+        app:srcCompat="@drawable/logo"
+        tools:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

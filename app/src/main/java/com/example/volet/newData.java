@@ -34,11 +34,12 @@ public class newData extends AppCompatActivity {
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
 
+            //send data to the database
             @Override
             public void onClick(View view) {
                 ConnectionHelper myDB = new ConnectionHelper(newData.this);
                 myDB.addData(des.getText().toString().trim(),
-                        Integer.valueOf((amount.getText().toString().trim())));
+                        Double.parseDouble((amount.getText().toString().trim())));
                 Intent sendData = new Intent(newData.this,HomePage.class);
                 startActivity(sendData);
                 finish();

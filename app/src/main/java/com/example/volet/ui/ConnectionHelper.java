@@ -39,7 +39,7 @@ public class ConnectionHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
     }
-    public void addData(String description, int amount){
+    public void addData(String description, double amount){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
