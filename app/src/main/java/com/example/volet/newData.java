@@ -42,7 +42,7 @@ public class newData extends AppCompatActivity {
             }
         });
     }
-    public void submitData(View v){
+    /*public void submitData(View v){
         //collecting data from the query
         EditText des = findViewById(R.id.des);
         EditText amount = findViewById(R.id.amount);
@@ -58,7 +58,7 @@ public class newData extends AppCompatActivity {
         startActivity(sendData);
         finish();
 
-    }
+    }*/
     public void expensed(View v){
         Button in =findViewById(R.id.income);
         in.setBackgroundColor(Color.rgb(211,211,211));
