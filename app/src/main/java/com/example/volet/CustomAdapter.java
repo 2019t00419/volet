@@ -14,16 +14,18 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>{
 
         private Context context;
-        private ArrayList id,description,amount;
+        private ArrayList id,description,amount,date;
 
         CustomAdapter(Context context,
                       ArrayList id,
                       ArrayList description,
-                      ArrayList amount){
+                      ArrayList amount,
+                      ArrayList date){
             this.context=context;
             this.id=id;
             this.amount=amount;
             this.description=description;
+            this.date=date;
         }
         @NonNull
         @Override
@@ -34,10 +36,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int pos) {
+            int position = amount.size()-1-pos;
             holder.id_txt.setText(String.valueOf(id.get(position)));
             holder.description_txt.setText(String.valueOf(description.get(position)));
             holder.amount_txt.setText(String.valueOf(amount.get(position)));
+            holder.date_txt.setText(String.valueOf(date.get(position)));
         }
 
         @Override
@@ -46,13 +50,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView id_txt,description_txt,amount_txt;
+            TextView id_txt,description_txt,amount_txt,date_txt;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 id_txt=itemView.findViewById(R.id.id_txt);
                 description_txt=itemView.findViewById(R.id.description_txt);
                 amount_txt=itemView.findViewById(R.id.amount_txt);
+                date_txt=itemView.findViewById(R.id.date_txt);
 
             }
         }

@@ -56,6 +56,7 @@
             android:layout_height="match_parent">
 
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="214dp"
                 android:layout_height="98dp"
                 android:layout_marginTop="32dp"
@@ -116,10 +117,11 @@
                 android:id="@+id/constraintLayout2"
                 android:layout_width="223dp"
                 android:layout_height="119dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintHorizontal_bias="0.517"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                app:layout_constraintTop_toBottomOf="@+id/datePickerButton">
 
                 <EditText
                     android:id="@+id/des"
@@ -156,6 +158,29 @@
                     app:layout_constraintTop_toBottomOf="@+id/amount" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/datePickerButton"
+                style="?android:spinnerStyle"
+                android:layout_width="138dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:onClick="openDatePicker"
+                android:text="JAN 01 2022"
+                android:textAlignment="viewStart"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                android:textColor="@color/design_default_color_background"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

@@ -21,7 +21,7 @@ public class HomePage extends AppCompatActivity {
 
 
     ConnectionHelper myDB ;
-    ArrayList<String>id,description,amount;
+    ArrayList<String>id,description,amount,date;
     RecyclerView recyclerView;
     CustomAdapter customAdapter;
 
@@ -48,8 +48,9 @@ public class HomePage extends AppCompatActivity {
         id=new ArrayList<>();
         description=new ArrayList<>();
         amount=new ArrayList<>();
+        date=new ArrayList<>();
         displayData();
-        customAdapter= new CustomAdapter(HomePage.this,id,description,amount);
+        customAdapter= new CustomAdapter(HomePage.this,id,description,amount,date);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
     }
@@ -67,6 +68,7 @@ public class HomePage extends AppCompatActivity {
                  id.add(cursor.getString(0));
                  description.add(cursor.getString(1));
                  amount.add(cursor.getString(2));
+                 date.add(cursor.getString(3));
 
              }
          }
