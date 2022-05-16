@@ -92,6 +92,9 @@ public class newData extends AppCompatActivity {
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month)+ " "+ day+ " "+year;
     }
+    private String makeDate(int day, int month, int year) {
+        return year+ " "+ month+ " "+day;
+    }
 
     private String getMonthFormat(int month) {
         if(month==1) {
