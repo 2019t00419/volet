@@ -1,4 +1,4 @@
-package com.example.volet.ui;
+package com.example.volet;
 
 import android.content.ContentValues;
 import android.content.Context;

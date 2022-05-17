@@ -16,8 +16,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.volet.ui.ConnectionHelper;
-
 import java.util.Calendar;
 
 public class newData<fragmentFirstBinding> extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -49,7 +47,7 @@ public class newData<fragmentFirstBinding> extends AppCompatActivity implements 
         in.setBackgroundColor(Color.rgb(211,211,211));
         Button out =findViewById(R.id.expense);
         out.setBackgroundColor(Color.rgb(156,39,176));
-        type_txt.setText("expence");
+        type_txt.setText("expense");
 
         des = findViewById(R.id.des);
         amount = findViewById(R.id.amount);
@@ -63,7 +61,7 @@ public class newData<fragmentFirstBinding> extends AppCompatActivity implements 
                 out.setBackgroundColor(Color.rgb(156,39,176));
                 Button in =findViewById(R.id.income);
                 in.setBackgroundColor(Color.rgb(211,211,211));
-                type_txt.setText("expence");
+                type_txt.setText("expense");
                 spinner2.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.VISIBLE);
                 category_txt.setText(type_out);

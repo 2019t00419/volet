@@ -12,10 +12,8 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
-import com.example.volet.ui.ConnectionHelper;
+import java.text.DecimalFormat;
 
 import java.util.ArrayList;
 
