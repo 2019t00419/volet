@@ -8,23 +8,31 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.volet.ui.ConnectionHelper;
 
 import java.util.Calendar;
 
-public class newData extends AppCompatActivity {
+public class newData<fragmentFirstBinding> extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
+    private TextView type_txt,category_txt;
+    private Spinner spinner,spinner2;
+    String type_in="Select Category";
+    String type_out="Select Category";
 
     EditText des,amount;
     Button submit;
-    String Type;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,32 +42,92 @@ public class newData extends AppCompatActivity {
         initDatePicker();
         dateButton=findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
+        type_txt = findViewById(R.id.type_txt);
+        type_txt.setText(getTodaysDateId());
 
         Button in =findViewById(R.id.income);
-        in.setBackgroundColor(Color.rgb(156,39,176));
+        in.setBackgroundColor(Color.rgb(211,211,211));
         Button out =findViewById(R.id.expense);
-        out.setBackgroundColor(Color.rgb(211,211,211));
-
+        out.setBackgroundColor(Color.rgb(156,39,176));
+        type_txt.setText("expence");
 
         des = findViewById(R.id.des);
         amount = findViewById(R.id.amount);
         submit = findViewById(R.id.submit);
+        out.setOnClickListener(new View.OnClickListener(){
+
+            //type buttons expense
+            @Override
+            public void onClick(View v) {
+                Button out =findViewById(R.id.expense);
+                out.setBackgroundColor(Color.rgb(156,39,176));
+                Button in =findViewById(R.id.income);
+                in.setBackgroundColor(Color.rgb(211,211,211));
+                type_txt.setText("expence");
+                spinner2.setVisibility(View.INVISIBLE);
+                spinner.setVisibility(View.VISIBLE);
+                category_txt.setText(type_out);
+            }
+        });
+        in.setOnClickListener(new View.OnClickListener(){
+
+            //type buttons income
+            @Override
+            public void onClick(View v) {
+                Button in =findViewById(R.id.income);
+                in.setBackgroundColor(Color.rgb(156,39,176));
+                Button out =findViewById(R.id.expense);
+                out.setBackgroundColor(Color.rgb(211,211,211));
+                type_txt.setText("income");
+                spinner2.setVisibility(View.VISIBLE);
+                spinner.setVisibility(View.INVISIBLE);
+                category_txt.setText(type_in);
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
 
             //send data to the database
             @Override
             public void onClick(View view) {
                 String date = (String) dateButton.getText();
-                TextView textView = findViewById(R.id.textView);
-                textView.setText(date);
                 ConnectionHelper myDB = new ConnectionHelper(newData.this);
+                if(type_txt.getText()=="income")
                 myDB.addData(des.getText().toString().trim(),
-                        Double.parseDouble((amount.getText().toString().trim())),((String) dateButton.getText()).trim());
+                        Double.parseDouble((amount.getText().toString().trim())),
+                        ((String) dateButton.getText()).trim(),
+                        type_txt.getText().toString().trim());
+                else{
+                    myDB.addData(des.getText().toString().trim(),
+                            Double.parseDouble(("-"+amount.getText().toString().trim())),
+                            ((String) dateButton.getText()).trim(),
+                            type_txt.getText().toString().trim());
+                }
+
                 Intent sendData = new Intent(newData.this,HomePage.class);
                 startActivity(sendData);
                 finish();
             }
         });
+
+        //dropdown menu1
+
+        spinner=findViewById(R.id.spinner);
+        String[] categories=getResources().getStringArray(R.array.out_categories);
+        ArrayAdapter adapter= new ArrayAdapter(this,android.R.layout.simple_spinner_item,categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        category_txt=findViewById(R.id.category_txt);
+        spinner.setOnItemSelectedListener(this);
+
+        //dropdown menu2
+
+        spinner2=findViewById(R.id.spinner2);
+        String[] categories2=getResources().getStringArray(R.array.in_categories);
+        ArrayAdapter adapter2= new ArrayAdapter(this,android.R.layout.simple_spinner_item,categories2);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
+        category_txt=findViewById(R.id.category_txt);
+        spinner2.setOnItemSelectedListener(this);
     }
 //date picker
     private String getTodaysDate() {
@@ -70,6 +138,19 @@ public class newData extends AppCompatActivity {
         int day=cal.get(Calendar.DAY_OF_MONTH);
         return makeDateString(day,month,year);
     }
+    private String getTodaysDateId() {
+        Calendar cal=Calendar.getInstance();
+        int year=cal.get(Calendar.YEAR);
+        int month=cal.get(Calendar.MONTH);
+        month=month+1;
+        int day=cal.get(Calendar.DAY_OF_MONTH);
+        if(month>9) {
+            return (year + "" + month + "" + day);
+        }
+        else {
+            return (year + "0" + month + "" + day);
+        }
+    }
 
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener= new DatePickerDialog.OnDateSetListener() {
@@ -77,7 +158,9 @@ public class newData extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month=month+1;
                 String date= makeDateString(day,month,year);
+                String dateId=makeDate(day,month,year);
                 dateButton.setText(date);
+                type_txt.setText(dateId);
             }
         };
         Calendar cal=Calendar.getInstance();
@@ -93,7 +176,12 @@ public class newData extends AppCompatActivity {
         return getMonthFormat(month)+ " "+ day+ " "+year;
     }
     private String makeDate(int day, int month, int year) {
-        return year+ " "+ month+ " "+day;
+        if(month>9) {
+            return (year + "" + month + "" + day);
+        }
+        else {
+            return (year + "0" + month + "" + day);
+        }
     }
 
     private String getMonthFormat(int month) {
@@ -136,21 +224,26 @@ public class newData extends AppCompatActivity {
         return "JAN";
     }
 
-    public void expensed(View v){
-        Button in =findViewById(R.id.income);
-        in.setBackgroundColor(Color.rgb(211,211,211));
-        Button out =findViewById(R.id.expense);
-        out.setBackgroundColor(Color.rgb(156,39,176));
-    }
-    public void incomed(View v){
-        Button in =findViewById(R.id.income);
-        in.setBackgroundColor(Color.rgb(156,39,176));
-        Button out =findViewById(R.id.expense);
-        out.setBackgroundColor(Color.rgb(211,211,211));
 
-    }
 
     public void openDatePicker(View view) {
         datePickerDialog.show();
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String valuesFromSpinner = parent.getItemAtPosition(position).toString();
+        if(type_txt.getText()=="income"){
+            type_in=valuesFromSpinner;
+        }else{
+            type_out=valuesFromSpinner;
+        }
+        category_txt.setText(valuesFromSpinner);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 }

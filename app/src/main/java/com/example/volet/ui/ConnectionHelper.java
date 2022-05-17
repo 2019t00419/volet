@@ -21,6 +21,7 @@ public class ConnectionHelper extends SQLiteOpenHelper{
     private static final String COLUMN_AMOUNT="Amount";
     private static final String COLUMN_ID="id";
     private static final String COLUMN_DATE="date";
+    private static final String COLUMN_DATEID="dateId";
 
 
     public ConnectionHelper(@Nullable Context context) {
@@ -31,7 +32,7 @@ public class ConnectionHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE "+TABLE_NAME+" ("+ COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,  "+
-                COLUMN_DES+ " TEXT,"+COLUMN_AMOUNT+ " FLOAT,"+COLUMN_DATE+ " TEXT);";
+                COLUMN_DES+ " TEXT,"+COLUMN_AMOUNT+ " FLOAT,"+COLUMN_DATE+ " TEXT,"+COLUMN_DATEID+ " TEXT);";
         db.execSQL(query);
     }
 
@@ -40,13 +41,15 @@ public class ConnectionHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
     }
-    public void addData(String description, double amount, String date){
+    public void addData(String description, double amount, String date,String dateId){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_DES,description);
         cv.put(COLUMN_AMOUNT,amount);
         cv.put(COLUMN_DATE,date);
+        cv.put(COLUMN_DATEID,dateId);
+
         long result = db.insert(TABLE_NAME,null,cv);
         if(result==-1){
             Toast.makeText(context, "failed", Toast.LENGTH_SHORT).show();

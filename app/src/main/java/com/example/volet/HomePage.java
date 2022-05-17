@@ -12,6 +12,8 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import com.example.volet.ui.ConnectionHelper;
 
@@ -21,9 +23,12 @@ public class HomePage extends AppCompatActivity {
 
 
     ConnectionHelper myDB ;
-    ArrayList<String>id,description,amount,date;
+    ArrayList<String>id,description,amount,date,dateId;
     RecyclerView recyclerView;
     CustomAdapter customAdapter;
+    TextView total_txt,income_txt,expense_txt;
+    //formatting output to two decimals
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +37,47 @@ public class HomePage extends AppCompatActivity {
         getSupportActionBar().hide();
 
         recyclerView=findViewById(R.id.recyclerView);
-        /*collecting data from newData.class
-        String descript="";
-        String amount="";
-        String type="";
 
-        Bundle getData= getIntent().getExtras();
-        if(getData !=null){
-            descript= getData.getString("description");
-            amount= getData.getString("amount");
-            type= getData.getString("type");
-        }
         //setting texts to relevant data*/
         myDB=new ConnectionHelper(HomePage.this);
         id=new ArrayList<>();
         description=new ArrayList<>();
         amount=new ArrayList<>();
         date=new ArrayList<>();
+        dateId=new ArrayList<>();
         displayData();
-        customAdapter= new CustomAdapter(HomePage.this,id,description,amount,date);
+        customAdapter= new CustomAdapter(HomePage.this,id,description,amount,date,dateId);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
+
+
+        //total generate
+        double total=0;
+        double income=0;
+        double expense=0;
+
+        for(int i = 0; i<amount.size(); i++){
+            total= total+Double.parseDouble(amount.get(i));
+            if(Double.parseDouble(amount.get(i))>=0){
+                income=income+Double.parseDouble(amount.get(i));
+            }else{
+                expense=expense+((-1)*Double.parseDouble(amount.get(i)));
+            }
+        }
+        total_txt = findViewById(R.id.total_txt);
+        income_txt = findViewById(R.id.income_txt);
+        expense_txt = findViewById(R.id.expense_txt);
+
+        total_txt.setText("Total: "+df.format(total));
+        if(total>=0){
+            total_txt.setTextColor(Color.rgb(56,172,236));
+        }else {
+            total_txt.setTextColor(Color.rgb(237,92,92));
+        }
+        income_txt.setText("Income: "+df.format(income));
+        expense_txt.setText("Expense: "+df.format(expense));
+        expense_txt.setTextColor(Color.rgb(237,92,92));
+        income_txt.setTextColor(Color.rgb(56,172,236));
     }
 
     public void addData(View v){
@@ -69,6 +94,7 @@ public class HomePage extends AppCompatActivity {
                  description.add(cursor.getString(1));
                  amount.add(cursor.getString(2));
                  date.add(cursor.getString(3));
+                 dateId.add(cursor.getString(4));
 
              }
          }

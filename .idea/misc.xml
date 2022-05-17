@@ -7,11 +7,12 @@
         <entry key="..\:/volet/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.121" />
         <entry key="..\:/volet/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.121" />
         <entry key="..\:/volet/app/src/main/res/layout/activity_home.xml" value="0.25" />
-        <entry key="..\:/volet/app/src/main/res/layout/activity_home_page.xml" value="0.20366795366795368" />
+        <entry key="..\:/volet/app/src/main/res/layout/activity_home_page.xml" value="0.4" />
         <entry key="..\:/volet/app/src/main/res/layout/activity_main.xml" value="0.128" />
         <entry key="..\:/volet/app/src/main/res/layout/activity_main2.xml" value="0.22826086956521738" />
-        <entry key="..\:/volet/app/src/main/res/layout/activity_new_data.xml" value="0.5985037406483791" />
+        <entry key="..\:/volet/app/src/main/res/layout/activity_new_data.xml" value="0.4" />
         <entry key="..\:/volet/app/src/main/res/layout/content_home.xml" value="0.25" />
+        <entry key="..\:/volet/app/src/main/res/layout/dropdown_item.xml" value="0.6" />
         <entry key="..\:/volet/app/src/main/res/layout/fragment_home.xml" value="0.10989583333333333" />
         <entry key="..\:/volet/app/src/main/res/layout/my_row.xml" value="0.536" />
         <entry key="..\:/volet/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.121" />

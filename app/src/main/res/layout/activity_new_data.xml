@@ -55,32 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="214dp"
-                android:layout_height="98dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-                <RadioButton
-                    android:id="@+id/radioButton3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-            </RadioGroup>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginEnd="1dp"
@@ -91,22 +68,19 @@
 
                 <Button
                     android:id="@+id/expense"
-                    android:layout_width="124dp"
-                    android:layout_height="52dp"
-                    android:layout_marginEnd="124dp"
-                    android:onClick="expensed"
-                    android:text="Button"
+                    android:layout_width="128dp"
+                    android:layout_height="51dp"
+                    android:text="Expense"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.473" />
 
                 <Button
                     android:id="@+id/income"
-                    android:layout_width="124dp"
+                    android:layout_width="128dp"
                     android:layout_height="52dp"
-                    android:onClick="incomed"
-                    android:text="Button"
+                    android:text="INCOME"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -116,7 +90,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="223dp"
-                android:layout_height="119dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.517"
@@ -157,30 +131,68 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/amount" />
 
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="62dp"
+                    android:layout_height="25dp"
+                    android:text="Category"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner"
+                    app:layout_constraintStart_toStartOf="@+id/amount" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="113dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/amount" />
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="113dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/spinner"
+                    app:layout_constraintStart_toStartOf="@+id/spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/amount"
+                    tools:visibility="invisible" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
                 android:id="@+id/datePickerButton"
                 style="?android:spinnerStyle"
                 android:layout_width="138dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:onClick="openDatePicker"
                 android:text="JAN 01 2022"
                 android:textAlignment="viewStart"
+                android:textColor="@color/design_default_color_background"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                android:textColor="@color/design_default_color_background"/>
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/type_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="35dp"
                 android:text="TextView"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.087"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <TextView
+                android:id="@+id/category_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/type_txt"
+                app:layout_constraintStart_toEndOf="@+id/type_txt" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

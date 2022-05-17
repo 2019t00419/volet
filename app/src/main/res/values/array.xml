@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="in_categories">
+        <item>Select Category</item>
+        <item>Salary</item>
+        <item>Loan</item>
+        <item>Gift</item>
+        <item>Bonus</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="out_categories">
+        <item>Select Category</item>
+        <item>Food</item>
+        <item>Transpotation</item>
+        <item>Education</item>
+        <item>Gift</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>
