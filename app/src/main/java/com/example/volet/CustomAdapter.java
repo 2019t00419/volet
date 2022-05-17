@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.math.RoundingMode;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>{
 
         private Context context;
-        private ArrayList id,description,amount,date,dateId;
+        private ArrayList id,description,amount,date,CatId;
         private static final DecimalFormat df = new DecimalFormat("0.00");
 
         CustomAdapter(Context context,
@@ -25,13 +24,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                       ArrayList description,
                       ArrayList amount,
                       ArrayList date,
-                      ArrayList dateId){
+                      ArrayList catId){
             this.context=context;
             this.id=id;
             this.amount=amount;
             this.description=description;
             this.date=date;
-            this.dateId=dateId;
+            this.CatId=catId;
 
         }
         @NonNull
@@ -49,7 +48,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             holder.id_txt.setText(String.valueOf(id.get(position)));
             holder.description_txt.setText(String.valueOf(description.get(position)));
             holder.date_txt.setText(String.valueOf(date.get(position)));
-            holder.dateId_txt.setText(String.valueOf(dateId.get(position))+"00000"+String.valueOf(id.get(position)));
+            holder.catId_txt.setText(String.valueOf(CatId.get(position)));
             if(Double.valueOf(String.valueOf(amount.get(position)))>=0){
                holder.amount_txt.setTextColor(Color.rgb(56,172,236));
                holder.amount_txt.setText(df.format(Double.valueOf(String.valueOf(amount.get(position)))));
@@ -65,7 +64,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView id_txt,description_txt,amount_txt,date_txt,dateId_txt;
+            TextView id_txt,description_txt,amount_txt,date_txt,catId_txt;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -73,7 +72,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 description_txt=itemView.findViewById(R.id.description_txt);
                 amount_txt=itemView.findViewById(R.id.amount_txt);
                 date_txt=itemView.findViewById(R.id.date_txt);
-                dateId_txt=itemView.findViewById(R.id.dateId_txt);
+                catId_txt=itemView.findViewById(R.id.catId_txt);
 
             }
         }

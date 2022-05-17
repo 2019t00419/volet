@@ -95,12 +95,12 @@ public class newData<fragmentFirstBinding> extends AppCompatActivity implements 
                 myDB.addData(des.getText().toString().trim(),
                         Double.parseDouble((amount.getText().toString().trim())),
                         ((String) dateButton.getText()).trim(),
-                        type_txt.getText().toString().trim());
+                        category_txt.getText().toString().trim());
                 else{
                     myDB.addData(des.getText().toString().trim(),
                             Double.parseDouble(("-"+amount.getText().toString().trim())),
                             ((String) dateButton.getText()).trim(),
-                            type_txt.getText().toString().trim());
+                            category_txt.getText().toString().trim());
                 }
 
                 Intent sendData = new Intent(newData.this,HomePage.class);
@@ -235,8 +235,12 @@ public class newData<fragmentFirstBinding> extends AppCompatActivity implements 
         String valuesFromSpinner = parent.getItemAtPosition(position).toString();
         if(type_txt.getText()=="income"){
             type_in=valuesFromSpinner;
+            spinner2.setVisibility(View.VISIBLE);
+            spinner.setVisibility(View.INVISIBLE);
         }else{
             type_out=valuesFromSpinner;
+            spinner2.setVisibility(View.INVISIBLE);
+            spinner.setVisibility(View.VISIBLE);
         }
         category_txt.setText(valuesFromSpinner);
     }
