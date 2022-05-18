@@ -158,7 +158,6 @@ public class newData<fragmentFirstBinding> extends AppCompatActivity implements 
                 String date= makeDateString(day,month,year);
                 String dateId=makeDate(day,month,year);
                 dateButton.setText(date);
-                type_txt.setText(dateId);
             }
         };
         Calendar cal=Calendar.getInstance();
