@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,9 @@ public class UpdateData extends AppCompatActivity {
     EditText des_input, amount_input;
     Button update_button, date_input;
     TextView cat_input,type;
+    String type_in="Select Category";
+    String type_out="Select Category";
+    private Spinner spinner,spinner2;
 
     String id, des, amount, date, cat;
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -26,6 +30,9 @@ public class UpdateData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_data);
+
+        Button out =findViewById(R.id.expense2);
+        Button in =findViewById(R.id.income2);
 
         des_input = findViewById(R.id.des2);
         amount_input = findViewById(R.id.amount2);
@@ -36,12 +43,42 @@ public class UpdateData extends AppCompatActivity {
 
         getAndSetIntentData();
 
+
+        in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                in.setBackgroundColor(Color.rgb(156,39,176));
+                out.setBackgroundColor(Color.rgb(211,211,211));
+                type.setText("income");
+                //spinner2.setVisibility(View.VISIBLE);
+                //spinner.setVisibility(View.INVISIBLE);
+                cat_input.setText(type_in);
+            }
+        });
+
+        out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                in.setBackgroundColor(Color.rgb(211,211,211));
+                out.setBackgroundColor(Color.rgb(156,39,176));
+                type.setText("expense");
+                //spinner2.setVisibility(View.VISIBLE);
+                //spinner.setVisibility(View.INVISIBLE);
+                cat_input.setText(type_out);
+
+            }
+        });
+
+//update data
         update_button.setOnClickListener(new View.OnClickListener() {
           @Override
            public void onClick(View v) {
               ConnectionHelper myDB=new ConnectionHelper(UpdateData.this);
-              myDB.updateData(id,String.valueOf(des_input.getText()),Double.valueOf(amount),String.valueOf(date_input.getText()),String.valueOf(cat_input.getText()));
-
+              if(type.getText()=="income") {
+                  myDB.updateData(id, String.valueOf(des_input.getText()), Double.valueOf(String.valueOf(amount_input.getText())), String.valueOf(date_input.getText()), String.valueOf(cat_input.getText()));
+              }else{
+                  myDB.updateData(id, String.valueOf(des_input.getText()),  (-1*Double.valueOf(String.valueOf(amount_input.getText()))), String.valueOf(date_input.getText()), String.valueOf(cat_input.getText()));
+              }
               Intent exit = new Intent(UpdateData.this,HomePage.class);
               startActivity(exit);
               finish();
