@@ -205,4 +205,14 @@
         app:layout_constraintEnd_toEndOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
+    <Button
+        android:id="@+id/deleteRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/update"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

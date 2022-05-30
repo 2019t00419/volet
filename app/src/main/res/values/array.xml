@@ -13,9 +13,9 @@
     <string-array name="out_categories">
         <item>Select Category</item>
         <item>Food</item>
-        <item>Transpotation</item>
-        <item>Education</item>
+        <item>Transportation</item>
         <item>Gift</item>
+        <item>Education</item>
         <item>Other</item>
     </string-array>
 

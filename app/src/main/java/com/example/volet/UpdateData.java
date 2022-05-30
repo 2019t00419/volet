@@ -2,6 +2,9 @@ package com.example.volet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,21 +12,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class UpdateData extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private DatePickerDialog datePickerDialog;
     EditText des_input, amount_input;
-    Button update_button, date_input;
+    Button update_button, date_input,deleteRow;
     TextView cat_input,type;
-    String type_in="Select Category";
-    String type_out="Select Category";
+    String type_in;
+    String type_out;
     private Spinner spinner,spinner2;
+    private Button dateButton;
 
     String id, des, amount, date, cat;
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -33,6 +40,10 @@ public class UpdateData extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_data);
         getSupportActionBar().hide();
+
+        initDatePicker();
+        dateButton=findViewById(R.id.datePickerButton2);
+        deleteRow=findViewById(R.id.deleteRow);
 
         Button out =findViewById(R.id.expense2);
         Button in =findViewById(R.id.income2);
@@ -71,22 +82,6 @@ public class UpdateData extends AppCompatActivity implements AdapterView.OnItemS
         spinner2.setOnItemSelectedListener(this);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +106,16 @@ public class UpdateData extends AppCompatActivity implements AdapterView.OnItemS
 
             }
         });
+//deleting an entry
+
+        deleteRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDialog();
+            }
+        });
+
+
 
 //update data
         update_button.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +150,6 @@ public class UpdateData extends AppCompatActivity implements AdapterView.OnItemS
                 des_input.setText(des);
                 cat_input.setText(cat);
                 date_input.setText(date);
-
                 //category
                 Button out =findViewById(R.id.expense2);
                 Button in =findViewById(R.id.income2);
@@ -169,6 +173,30 @@ public class UpdateData extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText(this,"No Data",Toast.LENGTH_SHORT).show();
             }
         }
+//delete dialog
+
+        void confirmDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Caution");
+        builder.setMessage("Are you sure you want to delete?");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                ConnectionHelper myDB=new ConnectionHelper((UpdateData.this));
+                myDB.deleteOneRow(id);
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+
+            }
+        });
+        builder.create().show();
+        }
+
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -189,4 +217,90 @@ public class UpdateData extends AppCompatActivity implements AdapterView.OnItemS
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
+
+
+
+
+
+
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month=month+1;
+                String date= makeDateString(day,month,year);
+                dateButton.setText(date);
+            }
+        };
+        Calendar cal=Calendar.getInstance();
+        int year=cal.get(Calendar.YEAR);
+        int month=cal.get(Calendar.MONTH);
+        int day=cal.get(Calendar.DAY_OF_MONTH);
+        int style= AlertDialog.THEME_HOLO_DARK;
+
+        datePickerDialog = new DatePickerDialog(this,style,dateSetListener,year,month,day);
+    }
+
+    private String makeDateString(int day, int month, int year) {
+        return getMonthFormat(month)+ " "+ day+ " "+year;
+    }
+    private String makeDate(int day, int month, int year) {
+        if(month>9) {
+            return (year + "" + month + "" + day);
+        }
+        else {
+            return (year + "0" + month + "" + day);
+        }
+    }
+
+    private String getMonthFormat(int month) {
+        if(month==1) {
+            return "JAN";
+        }
+        if(month==2) {
+            return "FEB";
+        }
+        if(month==3) {
+            return "MAR";
+        }
+        if(month==4) {
+            return "APR";
+        }
+        if(month==5) {
+            return "MAY";
+        }
+        if(month==6) {
+            return "JUN";
+        }
+        if(month==7) {
+            return "JUL";
+        }
+        if(month==8) {
+            return "AUG";
+        }
+        if(month==9) {
+            return "SEP";
+        }
+        if(month==10) {
+            return "OCT";
+        }
+        if(month==11) {
+            return "NOV";
+        }
+        if(month==12) {
+            return "DEC";
+        }
+        return "JAN";
+    }
+
+
+
+    public void openDatePicker(View view) {
+        datePickerDialog.show();
+    }
+
+
+
 }
