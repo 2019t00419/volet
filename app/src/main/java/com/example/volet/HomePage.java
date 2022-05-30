@@ -1,5 +1,6 @@
 package com.example.volet;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +45,7 @@ public class HomePage extends AppCompatActivity {
         date=new ArrayList<>();
         dateId=new ArrayList<>();
         displayData();
-        customAdapter= new CustomAdapter(HomePage.this,id,description,amount,date,dateId);
+        customAdapter= new CustomAdapter(HomePage.this,HomePage.this,id,description,amount,date,dateId);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
 
@@ -82,6 +83,15 @@ public class HomePage extends AppCompatActivity {
         Intent i = new Intent(HomePage.this, newData.class);
         startActivity(i);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            recreate();
+        }
+    }
+
     void displayData() {
         Cursor cursor=myDB.readAllData();
          if(cursor.getCount()==0){

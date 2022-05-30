@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Volet">
         <activity
+            android:name=".UpdateData"
+            android:exported="false" />
+        <activity
             android:name=".newData"
             android:exported="false" />
         <activity
