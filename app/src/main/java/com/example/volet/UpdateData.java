@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,7 +16,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
-public class UpdateData extends AppCompatActivity {
+public class UpdateData extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText des_input, amount_input;
     Button update_button, date_input;
@@ -30,6 +32,7 @@ public class UpdateData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_data);
+        getSupportActionBar().hide();
 
         Button out =findViewById(R.id.expense2);
         Button in =findViewById(R.id.income2);
@@ -44,14 +47,54 @@ public class UpdateData extends AppCompatActivity {
         getAndSetIntentData();
 
 
+
+
+
+
+
+        spinner=findViewById(R.id.spinner3);
+        String[] categories=getResources().getStringArray(R.array.out_categories);
+        ArrayAdapter adapter= new ArrayAdapter(this,android.R.layout.simple_spinner_item,categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        cat_input=findViewById(R.id.category_txt2);
+        spinner.setOnItemSelectedListener(this);
+
+        //dropdown menu2
+
+        spinner2=findViewById(R.id.spinner4);
+        String[] categories2=getResources().getStringArray(R.array.in_categories);
+        ArrayAdapter adapter2= new ArrayAdapter(this,android.R.layout.simple_spinner_item,categories2);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
+        cat_input=findViewById(R.id.category_txt2);
+        spinner2.setOnItemSelectedListener(this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 in.setBackgroundColor(Color.rgb(156,39,176));
                 out.setBackgroundColor(Color.rgb(211,211,211));
                 type.setText("income");
-                //spinner2.setVisibility(View.VISIBLE);
-                //spinner.setVisibility(View.INVISIBLE);
+                spinner2.setVisibility(View.VISIBLE);
+                spinner.setVisibility(View.INVISIBLE);
                 cat_input.setText(type_in);
             }
         });
@@ -62,8 +105,8 @@ public class UpdateData extends AppCompatActivity {
                 in.setBackgroundColor(Color.rgb(211,211,211));
                 out.setBackgroundColor(Color.rgb(156,39,176));
                 type.setText("expense");
-                //spinner2.setVisibility(View.VISIBLE);
-                //spinner.setVisibility(View.INVISIBLE);
+                spinner.setVisibility(View.VISIBLE);
+                spinner2.setVisibility(View.INVISIBLE);
                 cat_input.setText(type_out);
 
             }
@@ -126,4 +169,24 @@ public class UpdateData extends AppCompatActivity {
                 Toast.makeText(this,"No Data",Toast.LENGTH_SHORT).show();
             }
         }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String valuesFromSpinners = parent.getItemAtPosition(position).toString();
+        if(type.getText()=="income"){
+            type_in=valuesFromSpinners;
+            spinner2.setVisibility(View.VISIBLE);
+            spinner.setVisibility(View.INVISIBLE);
+        }else{
+            type_out=valuesFromSpinners;
+            spinner2.setVisibility(View.INVISIBLE);
+            spinner.setVisibility(View.VISIBLE);
+        }
+        cat_input.setText(valuesFromSpinners);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
